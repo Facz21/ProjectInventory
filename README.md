@@ -1,1 +1,1 @@
-# Proyect Inventory
+# Project Inventory
