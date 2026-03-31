@@ -1,10 +1,11 @@
-def create_product(name, quantity, price):
+def create_product(product_id, name, quantity, price):
     """
     Creates a new product in the inventory and its ID
     """
-    prodcut = {
+    product = {
+        "id" : product_id,
         "name" : name,
         "quantity" : quantity,
         "price" : price
     }
-    return prodcut    
+    return product 
