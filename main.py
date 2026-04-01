@@ -13,18 +13,23 @@ while start != 0 : #Control the program flow with a comparasion
     option = input("Select a option: ") 
     
     if option == "1":
-        product_id = int(input("Enter the product ID: "))
-        name = str(input("Enter the product name: "))
-        quantity = int(input("Enter the quantity of products: "))
-        price = int(input("Enter the price of product: "))
-        product = create_product(product_id,name,quantity,price)
-        products.append(product)    
-        print(products)
-        
+       init = 1
+       while init !=0: 
+        try:
+            product_id = int(input("Enter the product ID: "))
+            name = str(input("Enter the product name: "))
+            quantity = int(input("Enter the quantity of products: "))
+            price = int(input("Enter the price of product: "))
+            product = create_product(product_id,name,quantity,price)
+            products.append(product)
+            init = 0    
+        except ValueError:
+            print("Invalid entry try again")
     elif option =="2":
         show_products(products)
     elif option =="3":
-        print("Search Product")
+        product_name = input("Enter the product name: ")
+        searh_by_name(products,product_name)
     elif option == "0":
         print("Good bye user")
         start = 0

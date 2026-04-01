@@ -18,3 +18,10 @@ def show_products(products):
             print(k, ":", v)
         print("--------------")
 
+def searh_by_name(products, product_name):
+    for product in products:
+        if product["name"].lower() == product_name.lower():
+            print(f"Product found: {product}")
+            return product
+    print("Product not found")
+    return None
