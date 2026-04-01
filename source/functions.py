@@ -8,7 +8,13 @@ def create_product(product_id, name, quantity, price):
         "quantity" : quantity,
         "price" : price
     }
+    print(f"Product {name} added")
     return product
 
-def read_
- 
+def show_products(products):
+    
+    for products in products:
+        for k, v in products.items():
+            print(k, ":", v)
+        print("--------------")
+
