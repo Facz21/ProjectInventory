@@ -8,4 +8,7 @@ def create_product(product_id, name, quantity, price):
         "quantity" : quantity,
         "price" : price
     }
-    return product 
+    return product
+
+def read_
+ 
