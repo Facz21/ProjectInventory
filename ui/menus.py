@@ -11,9 +11,23 @@ def show_main_menu():
 ||3.Search product  ||
 ||4.Update product  ||
 ||5.Delete product  ||
-||6.Show stadistics ||
-||7.Save on a CSV   ||
-||8.Load on a CSV   ||
+||6.Show statistics ||
+||7.Save in JSON    ||
+||8.Load from JSON  ||
 ||0.Exit            ||
-  =================          
+  ==================          
+          """)
+
+def search_menu():
+  """"
+  This function show the options of searching modes
+  """
+  print("""
+  ==================       
+||   SEARCH MENU    ||
+  ==================
+||1.Search by ID    ||
+||2.Search by name  ||
+||0.Exit            ||
+  ==================          
           """)
