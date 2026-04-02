@@ -12,7 +12,7 @@ def show_main_menu():
 ||4.Update product  ||
 ||5.Delete product  ||
 ||6.Show statistics ||
-||7.Save in JSON    ||
+||7.Save in CSV     ||
 ||0.Exit            ||
   ==================          
           """)

@@ -1,7 +1,7 @@
 #main route where we use all the functions of the program
 from ui.menus import *
 from source.functions import *
-from db.json_manager import *
+from data.csv_manager import *
 from utils.helpers import *
 
 #Initializer variable
