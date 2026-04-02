@@ -2,17 +2,19 @@
 from ui.menus import *
 from source.functions import *
 from db.json_manager import *
+from utils.helpers import *
+
 #Initializer variable
 start = 1 
 
 #This dic
 products = load_data()
 while start != 0 : #Control the program flow with a comparasion
-    
+    cs()
     show_main_menu()
     
     option = input("Select a option: ") 
-    
+    cs()
     if option == "1":
        menu_options_1 = 1
        while menu_options_1 !=0: 
@@ -21,7 +23,9 @@ while start != 0 : #Control the program flow with a comparasion
             while sub_menu != 0:
                 product_id = int(input("Enter the product ID: "))
                 if find_product(products, product_id):
+                    cs()
                     print("ID already exist try another one")
+                    p(2)
                 else:
                     sub_menu = 0
             name = str(input("Enter the product name: "))
@@ -30,17 +34,23 @@ while start != 0 : #Control the program flow with a comparasion
             product = create_product(products,product_id,name,quantity,price)
             if product:
                 products.append(product)
+            p(2)
             menu_options_1 = 0    
         except ValueError:
             print("Invalid entry try again")
+            p(2)
+            
     elif option =="2":
         show_products(products)
+        p(5.5)
+       
     elif option =="3":
         menu_options_3 = 1
         while menu_options_3 != 0:
             
             search_menu()
             option = input("Select a option: ")
+            cs()
             if option == "1":
                 product_id = int(input("Enter the product ID: "))
                 search_by_ID(products, product_id)
@@ -52,15 +62,20 @@ while start != 0 : #Control the program flow with a comparasion
                 menu_options_3 = 0
             else:
                 print(f"Option {option} is invalid, try again")
+                p(1.5)
+                cs()
     elif option =="4":
         menu_options_4 = 1
         while menu_options_4 != 0:
             try:
                 product_id = int(input("Enter the product ID: "))
                 update_product(products, product_id)
+                p(2)
                 menu_options_4 = 0
             except ValueError:
                 print("Enter a valid data")
+                p(2)
+                cs()
 
     elif option == "5":
         menu_options_5 = 1
@@ -68,19 +83,23 @@ while start != 0 : #Control the program flow with a comparasion
             try:
                 product_id = int(input("Enter the product ID: "))
                 delete_product(products, product_id)
+                p(2)
                 menu_options_5 = 0
             except ValueError:
                 print("Enter a valid data for ID")
+                p(2)
     elif option == "6":
         show_statistics(products)
+        p(6)
     elif option == "7":
         save_data(products)
-        print("Data saved successfully")    
-    elif option == "8":
-        load_data()
-        print("Data load successfully")
+        print("Data saved successfully")
+        p(2)    
     elif option == "0":
+        cs()
         print("Good bye user")
+        p(3)
+        cs()
         start = 0
     else:
         print("")
