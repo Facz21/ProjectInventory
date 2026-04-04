@@ -1,106 +1,94 @@
-#main route where we use all the functions of the program
-from ui.menus import *
-from source.functions import *
-from data.csv_manager import *
-from utils.helpers import *
+# Import UI functions (menus displayed to the user)
+from ui.menus import show_main_menu
 
-#Initializer variable
-start = 1 
+# Import data persistence functions (CSV handling)
+from data.csv_manager import load_data, save_data
 
-#This dic
-products = load_data()
-while start != 0 : #Control the program flow with a comparasion
-    cs()
-    show_main_menu()
+# Import handlers (each one manages a complete user action)
+from source.handlers import (
+    handle_add_product,
+    handle_search,
+    handle_update,
+    handle_delete
+)
+
+# Import functions related to displaying data and statistics
+from source.functions import show_products, show_statistics
+
+# Import helper utilities (clear screen and pause)
+from utils.helpers import cs, p
+
+
+def main():
+    """
+    Main function that controls the entire program flow.
+    It loads data, displays the menu, and executes actions based on user input.
+    """
+
+    # Control variable for the main loop (0 = exit program)
+    start = 1 
     
-    option = input("Select a option: ") 
-    cs()
-    if option == "1":
-       menu_options_1 = 1
-       while menu_options_1 !=0: 
-        try:
-            sub_menu = 1
-            while sub_menu != 0:
-                product_id = int(input("Enter the product ID: "))
-                if find_product(products, product_id):
-                    cs()
-                    print("ID already exist try another one")
-                    p(2)
-                else:
-                    sub_menu = 0
-            name = str(input("Enter the product name: "))
-            quantity = int(input("Enter the quantity of products: "))
-            price = int(input("Enter the price of product: "))
-            product = create_product(products,product_id,name,quantity,price)
-            if product:
-                products.append(product)
-            p(2)
-            menu_options_1 = 0    
-        except ValueError:
-            print("Invalid entry try again")
-            p(2)
-            
-    elif option =="2":
-        show_products(products)
-        p(5.5)
-       
-    elif option =="3":
-        menu_options_3 = 1
-        while menu_options_3 != 0:
-            
-            search_menu()
-            option = input("Select a option: ")
-            cs()
-            if option == "1":
-                product_id = int(input("Enter the product ID: "))
-                search_by_ID(products, product_id)
-            elif option == "2":
-                product_name = input("Enter the product name: ")
-                search_by_name(products,product_name)
-            elif option == "0":
-                print("Returning to the main menu")
-                menu_options_3 = 0
-            else:
-                print(f"Option {option} is invalid, try again")
-                p(1.5)
-                cs()
-    elif option =="4":
-        menu_options_4 = 1
-        while menu_options_4 != 0:
-            try:
-                product_id = int(input("Enter the product ID: "))
-                update_product(products, product_id)
-                p(2)
-                menu_options_4 = 0
-            except ValueError:
-                print("Enter a valid data")
-                p(2)
-                cs()
+    # Load existing products from CSV file into memory
+    products = load_data()
 
-    elif option == "5":
-        menu_options_5 = 1
-        while menu_options_5 != 0:
-            try:
-                product_id = int(input("Enter the product ID: "))
-                delete_product(products, product_id)
-                p(2)
-                menu_options_5 = 0
-            except ValueError:
-                print("Enter a valid data for ID")
-                p(2)
-    elif option == "6":
-        show_statistics(products)
-        p(6)
-    elif option == "7":
-        save_data(products)
-        print("Data saved successfully")
-        p(2)    
-    elif option == "0":
-        cs()
-        print("Good bye user")
-        p(3)
-        cs()
-        start = 0
-    else:
-        print("")
+    # Main program loop
+    while start != 0:
+        cs()  # Clear screen for better user experience
+        show_main_menu()  # Display main menu options
         
+        # Capture user option
+        option = input("Select an option: ")
+
+        # CRUD OPERATIONS
+
+        # CREATE → Add a new product
+        if option == "1":
+            handle_add_product(products)
+
+        # READ → Show all products
+        elif option == "2":
+            show_products(products)
+            p(3)  # Pause for 3 seconds
+
+        # SEARCH → Search product by ID or name
+        elif option == "3":
+            handle_search(products)
+
+        # UPDATE → Modify an existing product
+        elif option == "4":
+            handle_update(products)
+
+        # DELETE → Remove a product from inventory
+        elif option == "5":
+            handle_delete(products)
+
+        # EXTRA FEATURES 
+
+        # STATISTICS → Show inventory statistics
+        elif option == "6":
+            show_statistics(products)
+            p(5)  # Pause to allow user to read data
+
+        # SAVE → Manually save data to CSV file
+        elif option == "7":
+            save_data(products)
+            print("Data saved")
+
+        # LOAD → Inform user that data is loaded (already done at start)
+        elif option == "8":
+            print("Data loaded")
+
+        # EXIT → End program
+        elif option == "0":
+            print("Goodbye")
+            start = 0
+
+        # INVALID OPTION → Handle incorrect input
+        else:
+            print("Invalid option")
+
+
+# Entry point of the program
+# Ensures main() runs only when this file is executed directly
+if __name__ == "__main__":
+    main()
